@@ -6,10 +6,22 @@
     <description>Recent content in R on Blog about benchmarks, ML, clouds and camelopard.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 27 Feb 2019 21:13:14 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 05 Mar 2019 19:00:00 +0300</lastBuildDate>
     
 	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Serverless providers</title>
+      <link>/2019/03/05/serverless-providers/</link>
+      <pubDate>Tue, 05 Mar 2019 19:00:00 +0300</pubDate>
+      
+      <guid>/2019/03/05/serverless-providers/</guid>
+      <description>Here is very nice article The largest benchmark of Serverless providers.
+And I really wait for new results which was promised to all of us in Bernd’s Twitter.
+Read my article on @Medium about the benchmark of the biggest four #serverless providers. A new benchmark is coming soon!https://t.co/j45fA0R7i5
+&amp;mdash; Bernd Strehl (@berndstrehl) 2019.03.04 However I found something interesting in previously piblished results.</description>
+    </item>
     
     <item>
       <title>SPEC vs SPEC</title>
