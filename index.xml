@@ -6,10 +6,21 @@
     <description>Recent content on Blog about benchmarks, ML, clouds and camelopard.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 Mar 2019 19:00:00 +0300</lastBuildDate>
+    <lastBuildDate>Tue, 19 Mar 2019 19:00:00 +0300</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Missing people in Russia</title>
+      <link>/2019/03/19/missing-people-in-russia/</link>
+      <pubDate>Tue, 19 Mar 2019 19:00:00 +0300</pubDate>
+      
+      <guid>/2019/03/19/missing-people-in-russia/</guid>
+      <description>Official open data from The Ministry of Internal Affairs of the Russian Federation on missing and wanted people, identified and unindentified corpses updated for year 2018.
+Detailed data available on Kaggle Dataset
+## year lost found## 1: 2014 93900 44921## 2: 2015 93085 45311## 3: 2016 88751 42937## 4: 2017 83923 40748## 5: 2018 76217 33545{&#34;x&#34;:{&#34;data&#34;:[{&#34;x&#34;:[2014,2015,2016,2017,2018],&#34;y&#34;:[48979,47774,45814,43175,42672],&#34;text&#34;:[&#34;year: 2014</description>
+    </item>
     
     <item>
       <title>Serverless providers</title>
