@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.54.0" />
+
+
+<meta name="twitter:site" content="@AMiniushkin" />	
+<meta name="twitter:description" content="Blog about benchmarks, ML, clouds and camelopard." />	
+<meta property="description" content="Blog about benchmarks, ML, clouds and camelopard.">
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://alexander-minyushkin.github.io/widget/2019-04-09-Speeding-up-blogdown-with-Nginx_widget.png" />
+<meta name="twitter:player" content="https://alexander-minyushkin.github.io/widget/2019-04-09-Speeding-up-blogdown-with-Nginx_widget.html" />
+<meta name="twitter:player:width" content="480" />
+<meta name="twitter:player:height" content="480" />
+
+
+
+<title>Speeding up R blogdown with Nginx - 1000x times </title>
+<meta name="twitter:title" content="Speeding up R blogdown with Nginx - 1000x times " />
+<meta property="og:title" content="Speeding up R blogdown with Nginx - 1000x times ">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="https://github.com/Alexander-Minyushkin">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/AMiniushkin">Twitter</a></li>
+    
+    <li><a href="https://www.youtube.com/channel/UC_G9bFmPngSeLnHjimtzXSg">Youtube</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">3 min read</span>
+    
+
+    <h1 class="article-title">Speeding up R blogdown with Nginx</h1>
+    <h3 class="article-subtitle"> - 1000x times </h3>
+
+    
+    <span class="article-date">2019-04-09</span>
+    
+
+    <div class="article-content">
+      
+
+
+<p>One of my blogdown sites shows high response times on local PC (Windows 10) while serving from RStudio. To solve this problem I made Nginx config that allows you to view static content while editing blogdown project. Main change to simplest config is to disable all caching in Nginx and browser, otherwise you will not see latest changes after rendering.</p>
+<p>Apache benchmark show response time drop from 2 seconds to 2 milliseconds.</p>
+<p><a href="http://nginx.org/en/docs/beginners_guide.html">Install Nginx</a> and put two files into project folder:</p>
+<ul>
+<li><a href="https://github.com/Alexander-Minyushkin/Alexander-Minyushkin.github.io_source/blob/master/mime.types">mime.types</a> also available in nginx/conf folder</li>
+<li><a href="https://github.com/Alexander-Minyushkin/Alexander-Minyushkin.github.io_source/blob/master/nginx.config">nginx.config</a></li>
+</ul>
+<pre class="bash"><code># nginx.config
+# Windows
+#
+# Start:
+# mkdir ./tmp/logs
+# mkdir ./tmp/temp
+# nginx -p ./tmp -c ./nginx.config
+#
+# List nginx processes
+# tasklist /fi &quot;imagename eq nginx.exe&quot;
+#
+# Kill all nginx
+# taskkill /f /IM nginx.exe
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       mime.types;
+
+    server {
+        listen       8070;
+        server_name  localhost;
+
+        location / {            
+            root   ./public;
+            index  index.html;
+            
+            # kill browser cache
+            add_header Last-Modified $date_gmt;
+            add_header Cache-Control &#39;no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0&#39;;
+            if_modified_since off;
+            expires off;
+            etag off;
+            
+            # kill nginx cache
+            # don&#39;t cache it
+            proxy_no_cache 1;
+            # even if cached, don&#39;t try to use it
+            proxy_cache_bypass 1; 
+        }
+    }
+}</code></pre>
+<pre class="bash"><code>&gt; ab -n 20 -c 1 http://127.0.0.1:4321/
+This is ApacheBench, Version 2.3 &lt;$Revision: 1843412 $&gt;
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient).....done
+
+
+Server Software:
+Server Hostname:        127.0.0.1
+Server Port:            4321
+
+Document Path:          /
+Document Length:        3694 bytes
+
+Concurrency Level:      1
+Time taken for tests:   21.597 seconds
+Complete requests:      20
+Failed requests:        0
+Total transferred:      76320 bytes
+HTML transferred:       73880 bytes
+Requests per second:    0.93 [#/sec] (mean)
+Time per request:       1079.836 [ms] (mean)
+Time per request:       1079.836 [ms] (mean, across all concurrent requests)
+Transfer rate:          3.45 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    1   0.4      1       1
+Processing:   203 1079 851.4   1771    2088
+Waiting:      203 1078 851.4   1771    2087
+Total:        204 1080 851.4   1772    2089
+
+Percentage of the requests served within a certain time (ms)
+  50%   1772
+  66%   1850
+  75%   1928
+  80%   1931
+  90%   1991
+  95%   2089
+  98%   2089
+  99%   2089
+ 100%   2089 (longest request)
+ 
+ 
+&gt; ab -n 20 -c 1 http://127.0.0.1:8070/
+This is ApacheBench, Version 2.3 &lt;$Revision: 1843412 $&gt;
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient).....done
+
+
+Server Software:        nginx/1.15.10
+Server Hostname:        127.0.0.1
+Server Port:            8070
+
+Document Path:          /
+Document Length:        2857 bytes
+
+Concurrency Level:      1
+Time taken for tests:   0.050 seconds
+Complete requests:      20
+Failed requests:        0
+Total transferred:      63540 bytes
+HTML transferred:       57140 bytes
+Requests per second:    399.98 [#/sec] (mean)
+Time per request:       2.500 [ms] (mean)
+Time per request:       2.500 [ms] (mean, across all concurrent requests)
+Transfer rate:          1240.94 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.5      0       1
+Processing:     1    2   0.5      2       2
+Waiting:        1    1   0.5      1       2
+Total:          1    2   0.5      2       3
+
+Percentage of the requests served within a certain time (ms)
+  50%      2
+  66%      2
+  75%      2
+  80%      3
+  90%      3
+  95%      3
+  98%      3
+  99%      3
+ 100%      3 (longest request)
+ 
+</code></pre>
+<p>You can leave comments here <a href="https://twitter.com/AMiniushkin" class="uri">https://twitter.com/AMiniushkin</a></p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135312573-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+  </body>
+</html>
+

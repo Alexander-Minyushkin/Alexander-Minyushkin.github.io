@@ -12,11 +12,11 @@
     
     
     <item>
-      <title>Speeding up blogdown with Nginx</title>
-      <link>/2019/04/09/speeding-up-blogdown-with-nginx/</link>
+      <title>Speeding up R blogdown with Nginx</title>
+      <link>/2019/04/09/speeding-up-r-blogdown-with-nginx/</link>
       <pubDate>Tue, 09 Apr 2019 19:00:00 +0300</pubDate>
       
-      <guid>/2019/04/09/speeding-up-blogdown-with-nginx/</guid>
+      <guid>/2019/04/09/speeding-up-r-blogdown-with-nginx/</guid>
       <description>One of my blogdown sites shows high response times on local PC (Windows 10) while serving from RStudio. To solve this problem I made Nginx config that allows you to view static content while editing blogdown project. Main change to simplest config is to disable all caching in Nginx and browser, otherwise you will not see latest changes after rendering.
 Apache benchmark show response time drop from 2 seconds to 2 milliseconds.</description>
     </item>
