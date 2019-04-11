@@ -6,10 +6,23 @@
     <description>Recent content in Posts on Blog about benchmarks, ML, clouds and camelopard.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 09 Apr 2019 19:00:00 +0300</lastBuildDate>
+    <lastBuildDate>Thu, 11 Apr 2019 19:00:00 +0300</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hosting Static Website on Google Cloud Run</title>
+      <link>/2019/04/11/hosting-static-website-on-google-cloud-run/</link>
+      <pubDate>Thu, 11 Apr 2019 19:00:00 +0300</pubDate>
+      
+      <guid>/2019/04/11/hosting-static-website-on-google-cloud-run/</guid>
+      <description>Deployment of static websites was always fun, easy and free. But new options arrives every day.
+Google announced Cloud Run - fully managed stateless HTTP containers which we can use instead of cheaper approach on Cloud Storage https://cloud.google.com/storage/docs/hosting-static-website .
+Put these 2 files near public/ folder with your content.
+app.py
+# Testing locally: # $ python app.pyimport osfrom flask import Flask, request, send_from_directoryapp = Flask(__name__)@app.route(&amp;#39;/&amp;#39;, defaults={&amp;#39;path&amp;#39;: &amp;#39;&amp;#39;})@app.</description>
+    </item>
     
     <item>
       <title>Speeding up R blogdown with Nginx</title>

@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Blog about benchmarks, ML, clouds and camelopard.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 Mar 2019 19:00:00 +0300</lastBuildDate>
+    <lastBuildDate>Thu, 11 Apr 2019 19:00:00 +0300</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,45 @@
     <item>
       <title>Cloud</title>
       <link>/tags/cloud/</link>
-      <pubDate>Tue, 05 Mar 2019 19:00:00 +0300</pubDate>
+      <pubDate>Thu, 11 Apr 2019 19:00:00 +0300</pubDate>
       
       <guid>/tags/cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Deployment</title>
+      <link>/tags/deployment/</link>
+      <pubDate>Thu, 11 Apr 2019 19:00:00 +0300</pubDate>
+      
+      <guid>/tags/deployment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>/tags/docker/</link>
+      <pubDate>Thu, 11 Apr 2019 19:00:00 +0300</pubDate>
+      
+      <guid>/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Flask</title>
+      <link>/tags/flask/</link>
+      <pubDate>Thu, 11 Apr 2019 19:00:00 +0300</pubDate>
+      
+      <guid>/tags/flask/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Gcp</title>
+      <link>/tags/gcp/</link>
+      <pubDate>Thu, 11 Apr 2019 19:00:00 +0300</pubDate>
+      
+      <guid>/tags/gcp/</guid>
       <description></description>
     </item>
     
@@ -35,6 +71,15 @@
       <pubDate>Tue, 09 Apr 2019 19:00:00 +0300</pubDate>
       
       <guid>/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>/tags/python/</link>
+      <pubDate>Thu, 11 Apr 2019 19:00:00 +0300</pubDate>
+      
+      <guid>/tags/python/</guid>
       <description></description>
     </item>
     

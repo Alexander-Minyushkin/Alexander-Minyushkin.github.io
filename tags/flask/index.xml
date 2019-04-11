@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Cloud on Blog about benchmarks, ML, clouds and camelopard.</title>
-    <link>/tags/cloud/</link>
-    <description>Recent content in Cloud on Blog about benchmarks, ML, clouds and camelopard.</description>
+    <title>Flask on Blog about benchmarks, ML, clouds and camelopard.</title>
+    <link>/tags/flask/</link>
+    <description>Recent content in Flask on Blog about benchmarks, ML, clouds and camelopard.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 11 Apr 2019 19:00:00 +0300</lastBuildDate>
     
-	<atom:link href="/tags/cloud/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/flask/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -22,18 +22,6 @@ Google announced Cloud Run - fully managed stateless HTTP containers which we ca
 Put these 2 files near public/ folder with your content.
 app.py
 # Testing locally: # $ python app.pyimport osfrom flask import Flask, request, send_from_directoryapp = Flask(__name__)@app.route(&amp;#39;/&amp;#39;, defaults={&amp;#39;path&amp;#39;: &amp;#39;&amp;#39;})@app.</description>
-    </item>
-    
-    <item>
-      <title>Serverless providers</title>
-      <link>/2019/03/05/serverless-providers/</link>
-      <pubDate>Tue, 05 Mar 2019 19:00:00 +0300</pubDate>
-      
-      <guid>/2019/03/05/serverless-providers/</guid>
-      <description>Here is very nice article The largest benchmark of Serverless providers.
-And I really wait for new results which was promised to all of us in Bernd’s Twitter.
-Read my article on @Medium about the benchmark of the biggest four #serverless providers. A new benchmark is coming soon!https://t.co/j45fA0R7i5
-&amp;mdash; Bernd Strehl (@berndstrehl) 2019.03.04 However I found something interesting in previously piblished results.</description>
     </item>
     
   </channel>

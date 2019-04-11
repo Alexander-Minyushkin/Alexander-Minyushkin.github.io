@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.54.0" />
+
+
+<meta name="twitter:site" content="@AMiniushkin" />	
+<meta name="twitter:description" content="Blog about benchmarks, ML, clouds and camelopard." />	
+<meta property="description" content="Blog about benchmarks, ML, clouds and camelopard.">
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://alexander-minyushkin.github.io/widget/2019-04-11-Hosting-Static-Website-on-Google-Cloud-Run_widget.png" />
+<meta name="twitter:player" content="https://alexander-minyushkin.github.io/widget/2019-04-11-Hosting-Static-Website-on-Google-Cloud-Run_widget.html" />
+<meta name="twitter:player:width" content="480" />
+<meta name="twitter:player:height" content="480" />
+
+
+
+<title>Hosting Static Website on Google Cloud Run - Why not? </title>
+<meta name="twitter:title" content="Hosting Static Website on Google Cloud Run - Why not? " />
+<meta property="og:title" content="Hosting Static Website on Google Cloud Run - Why not? ">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="https://github.com/Alexander-Minyushkin">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/AMiniushkin">Twitter</a></li>
+    
+    <li><a href="https://www.youtube.com/channel/UC_G9bFmPngSeLnHjimtzXSg">Youtube</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">2 min read</span>
+    
+
+    <h1 class="article-title">Hosting Static Website on Google Cloud Run</h1>
+    <h3 class="article-subtitle"> - Why not? </h3>
+
+    
+    <span class="article-date">2019-04-11</span>
+    
+
+    <div class="article-content">
+      
+
+
+<p>Deployment of static websites was always fun, easy and free. But new options arrives every day.</p>
+<p>Google announced <a href="https://cloud.google.com/run/">Cloud Run</a> - fully managed stateless HTTP containers which we can use instead of cheaper approach on Cloud Storage <a href="https://cloud.google.com/storage/docs/hosting-static-website" class="uri">https://cloud.google.com/storage/docs/hosting-static-website</a> .</p>
+<p>Put these 2 files near <strong>public/</strong> folder with your content.</p>
+<p><a href="https://github.com/Alexander-Minyushkin/Alexander-Minyushkin.github.io_source/blob/master/app.py">app.py</a></p>
+<pre class="bash"><code># Testing locally: 
+# $ python app.py
+import os
+
+from flask import Flask, request, send_from_directory
+
+app = Flask(__name__)
+
+@app.route(&#39;/&#39;, defaults={&#39;path&#39;: &#39;&#39;})
+@app.route(&#39;/&lt;path:path&gt;&#39;)
+def send_static(path):
+    if len(path)==0 or path[-1]==&#39;/&#39;:
+        return send_from_directory(&#39;public&#39;, f&#39;{path}index.html&#39;)
+    return send_from_directory(&#39;public&#39;, path)
+
+if __name__ == &quot;__main__&quot;:
+    app.run(debug=True,host=&#39;0.0.0.0&#39;,port=int(os.environ.get(&#39;PORT&#39;, 8080)))</code></pre>
+<p><a href="https://github.com/Alexander-Minyushkin/Alexander-Minyushkin.github.io_source/blob/master/Dockerfile">Dockerfile</a></p>
+<pre class="bash"><code># Use the official Python image.
+# https://hub.docker.com/_/python
+FROM python:3.6-alpine
+
+# Install production dependencies.
+RUN pip install Flask gunicorn
+
+# Copy local code to the container image.
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+COPY app.py .
+COPY ./public ./public
+
+
+# Run the web service on container startup. Here we use the gunicorn
+# webserver, with one worker process and 8 threads.
+# For environments with multiple CPU cores, increase the number of workers
+# to be equal to the cores available.
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 app:app</code></pre>
+<p>Then deploy on Cloud Run:</p>
+<pre class="bash"><code>docker build -t gcr.io/[PROJECT-ID]/[SERVICE_NAME]:[TAG] .
+docker push gcr.io/[PROJECT-ID]/[SERVICE_NAME]:[TAG]
+gcloud beta run deploy [SERVICE_NAME] --image gcr.io/[PROJECT-ID]/[SERVICE_NAME]:[TAG] \
+--concurrency=10 \
+--region=us-central1 \
+--allow-unauthenticated</code></pre>
+<p>Your site will be available to anybody (thanks to <strong>–allow-unauthenticated</strong>) by link like this <a href="https://mystatic-uydlcxd3aq-uc.a.run.app" class="uri">https://mystatic-uydlcxd3aq-uc.a.run.app</a></p>
+<p>Remind you once again: this approach is not free. You will need to pay for compute time and for storage (containers introduce additional overhead to size of your content). See more details on pricing here <a href="https://cloud.google.com/run/pricing" class="uri">https://cloud.google.com/run/pricing</a></p>
+<p>You can leave comments here <a href="https://twitter.com/AMiniushkin" class="uri">https://twitter.com/AMiniushkin</a></p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135312573-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+  </body>
+</html>
+
