@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.54.0" />
+
+
+<meta name="twitter:site" content="@AMiniushkin" />	
+<meta name="twitter:description" content="Blog about benchmarks, ML, clouds and camelopard." />	
+<meta property="description" content="Blog about benchmarks, ML, clouds and camelopard.">
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://alexander-minyushkin.github.io/widget/2019-08-16-Minimal-Hardware-Estimates_widget.png" />
+<meta name="twitter:player" content="https://alexander-minyushkin.github.io/widget/2019-08-16-Minimal-Hardware-Estimates_widget.html" />
+<meta name="twitter:player:width" content="480" />
+<meta name="twitter:player:height" content="480" />
+
+
+
+<title>Minimal Hardware Estimates - How low you can go? </title>
+<meta name="twitter:title" content="Minimal Hardware Estimates - How low you can go? " />
+<meta property="og:title" content="Minimal Hardware Estimates - How low you can go? ">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="https://github.com/Alexander-Minyushkin">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/AMiniushkin">Twitter</a></li>
+    
+    <li><a href="https://www.youtube.com/channel/UC_G9bFmPngSeLnHjimtzXSg">Youtube</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">2 min read</span>
+    
+
+    <h1 class="article-title">Minimal Hardware Estimates</h1>
+    <h3 class="article-subtitle"> - How low you can go? </h3>
+
+    
+    <span class="article-date">2019-08-16</span>
+    
+
+    <div class="article-content">
+      
+
+
+<p>When you want to estimate hardware for Non-production environment you want to spend minimal resources on it.</p>
+<p>Especially if you need it only for development where very low workloads expected.</p>
+<p><a href="https://www.google.com/search?q=kafka+minimum+requirements">Googling</a> minimal hardware recommendations may disappoint you, because authors avoid to give such recommendations.</p>
+<p>For example Kafka: <a href="https://kafka.apache.org/documentation/#hwandos">We are using dual quad-core Intel Xeon machines with 24GB of memory.</a> 24 GB RAM, are you sure?</p>
+<p>Most popular answer is on Quora: <a href="https://www.quora.com/What-is-viable-hardware-for-Zookeeper-and-Kafka-brokers">Do not cheap out and try to have a machine with 48TB disk and 2GB ram and a duel core CPU, but dont go crazy.</a></p>
+<p>Here is Liferay <a href="https://www.liferay.com/documents/10182/1645493/Liferay+Portal+EE+Reference+Architecture+%26+Hardware+Requirements/7f618f87-ca55-4e39-ba21-b3faadbca206?version=1.3">For the purposes of this document we will use a <strong>very simple</strong> reference hardware configuration
+illustrated here:</a></p>
+<ol style="list-style-type: decimal">
+<li>Web Server</li>
+</ol>
+<ul>
+<li>1 x Intel Core 2 Duo E6405 2.13GHz CPU, 2MB L2 cache (2 cores total)</li>
+<li>4GB memory</li>
+<li>1 x 146GB 7.2k RPM IDE</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Application Server</li>
+</ol>
+<ul>
+<li>2 x Intel Core 2 Quad E5430 2.66GHz CPU, 12MB L2 cache (8 cores total)</li>
+<li>8GB memory</li>
+<li>2 x 146GB 10k RPM SCSI</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Database Tier</li>
+</ol>
+<ul>
+<li>1 x Intel Core 2 Quad E5430 2.66GHz CPU, 12MB L2 cache (8 cores total)</li>
+<li>16GB memory</li>
+<li>4 x 146GB 15k RPM SCSI</li>
+</ul>
+<p>It all looks too big for non-prod environment with near zero workload.</p>
+<p>To solve this problem I found it useful to take a look at GCP marketplace.</p>
+<p><a href="https://console.cloud.google.com/marketplace/details/bitnami-launchpad/kafka">GCP Marketplace Kafka</a></p>
+<ul>
+<li>VM instance: 1 vCPU + 3.75 GB memory (n1-standard-1)</li>
+<li>Standard persistent disk: 10 GB</li>
+</ul>
+<p><a href="https://console.cloud.google.com/marketplace/details/bitnami-launchpad/liferay">GCP Marketplace Liferay</a></p>
+<ul>
+<li>VM instance: 2 vCPUs + 7.5 GB memory (n1-standard-2)</li>
+<li>Standard persistent disk: 10 GB</li>
+</ul>
+<p>Default recommendations there are small enough. You can use them without verification if you trust Google Cloud.</p>
+<p>After all, you can spend one cent, try to deploy on smaller instances and check if it works.</p>
+<p>You can leave comments here <a href="https://twitter.com/AMiniushkin" class="uri">https://twitter.com/AMiniushkin</a></p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-135312573-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+  </body>
+</html>
+

@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Blog about benchmarks, ML, clouds and camelopard.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Apr 2019 19:00:00 +0300</lastBuildDate>
+    <lastBuildDate>Fri, 16 Aug 2019 19:00:00 +0300</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Cloud</title>
       <link>/tags/cloud/</link>
-      <pubDate>Thu, 11 Apr 2019 19:00:00 +0300</pubDate>
+      <pubDate>Fri, 16 Aug 2019 19:00:00 +0300</pubDate>
       
       <guid>/tags/cloud/</guid>
       <description></description>
@@ -50,9 +50,18 @@
     <item>
       <title>Gcp</title>
       <link>/tags/gcp/</link>
-      <pubDate>Thu, 11 Apr 2019 19:00:00 +0300</pubDate>
+      <pubDate>Fri, 16 Aug 2019 19:00:00 +0300</pubDate>
       
       <guid>/tags/gcp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hardware</title>
+      <link>/tags/hardware/</link>
+      <pubDate>Fri, 16 Aug 2019 19:00:00 +0300</pubDate>
+      
+      <guid>/tags/hardware/</guid>
       <description></description>
     </item>
     

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hardware on Blog about benchmarks, ML, clouds and camelopard.</title>
+    <link>/tags/hardware/</link>
+    <description>Recent content in Hardware on Blog about benchmarks, ML, clouds and camelopard.</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 16 Aug 2019 19:00:00 +0300</lastBuildDate>
+    
+	<atom:link href="/tags/hardware/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Minimal Hardware Estimates</title>
+      <link>/2019/08/16/minimal-hardware-estimates/</link>
+      <pubDate>Fri, 16 Aug 2019 19:00:00 +0300</pubDate>
+      
+      <guid>/2019/08/16/minimal-hardware-estimates/</guid>
+      <description>When you want to estimate hardware for Non-production environment you want to spend minimal resources on it.
+Especially if you need it only for development where very low workloads expected.
+Googling minimal hardware recommendations may disappoint you, because authors avoid to give such recommendations.
+For example Kafka: We are using dual quad-core Intel Xeon machines with 24GB of memory. 24 GB RAM, are you sure?
+Most popular answer is on Quora: Do not cheap out and try to have a machine with 48TB disk and 2GB ram and a duel core CPU, but dont go crazy.</description>
+    </item>
+    
+  </channel>
+</rss>

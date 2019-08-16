@@ -12,16 +12,16 @@
 
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://alexander-minyushkin.github.io/widget/_widget.png" />
-<meta name="twitter:player" content="https://alexander-minyushkin.github.io/widget/_widget.html" />
+<meta name="twitter:image" content="https://alexander-minyushkin.github.io/widget/2019-08-16-Minimal-Hardware-Estimates_widget.png" />
+<meta name="twitter:player" content="https://alexander-minyushkin.github.io/widget/2019-08-16-Minimal-Hardware-Estimates_widget.html" />
 <meta name="twitter:player:width" content="480" />
 <meta name="twitter:player:height" content="480" />
 
 
 
-<title>Gcp</title>
-<meta name="twitter:title" content="Gcp" />
-<meta property="og:title" content="Gcp">
+<title>Minimal in Hardware Estimates - How low you can go? </title>
+<meta name="twitter:title" content="Minimal in Hardware Estimates - How low you can go? " />
+<meta property="og:title" content="Minimal in Hardware Estimates - How low you can go? ">
 
 
   <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
@@ -31,7 +31,10 @@
 
 
 
-<link href="/tags/gcp/index.xml" rel="alternate" type="application/rss+xml" title="Blog about benchmarks, ML, clouds and camelopard." />
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
 
 
 
@@ -68,27 +71,40 @@
 
 <main class="content" role="main">
 
+  <article class="article">
+    
+    <span class="article-duration">1 min read</span>
+    
+
+    <h1 class="article-title">Minimal in Hardware Estimates</h1>
+    <h3 class="article-subtitle"> - How low you can go? </h3>
+
+    
+    <span class="article-date">2019-08-16</span>
+    
+
+    <div class="article-content">
+      
+
+
+<pre class="r"><code>hw &lt;- fread(&#39;2019-04-19-Hysteresis-in-Hardware-Estimates/sample_HW.csv&#39;)
+
+hw$time &lt;- (hw$day-1)*24 + hw$time_h
+
+ggplot(data = melt(hw, id.vars=&quot;time&quot;, measure.vars=c(&quot;workload&quot;, &quot;HW&quot;)), 
+           aes(x=time,
+               y=value,
+               color=variable,
+               group=variable)) +
+      geom_line() + ggtitle(&quot;Workload and HW utilization&quot;) </code></pre>
+<p><img src="/post/2019-08-16-Minimal-Hardware-Estimates_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>You can leave comments here <a href="https://twitter.com/AMiniushkin" class="uri">https://twitter.com/AMiniushkin</a></p>
+
+    </div>
+  </article>
+
   
-  <div class="archive">
-    
-    <h2 class="archive-title">2019</h2>
-    
-    <article class="archive-item">
-      <a href="/2019/08/16/minimal-hardware-estimates/" class="archive-item-link">Minimal Hardware Estimates</a>
-      <span class="archive-item-date">
-        2019-08-16
-      </span>
-    </article>
-    
-    <article class="archive-item">
-      <a href="/2019/04/11/hosting-static-website-on-google-cloud-run/" class="archive-item-link">Hosting Static Website on Google Cloud Run</a>
-      <span class="archive-item-date">
-        2019-04-11
-      </span>
-    </article>
-    
-    
-  </div>
+
 
 </main>
 
@@ -106,7 +122,22 @@
     </div>
     
 
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
     
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 
     
 <script type="application/javascript">
