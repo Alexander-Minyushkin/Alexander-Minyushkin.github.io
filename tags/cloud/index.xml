@@ -17,7 +17,7 @@
       <pubDate>Fri, 16 Aug 2019 19:00:00 +0300</pubDate>
       
       <guid>/2019/08/16/minimal-hardware-estimates/</guid>
-      <description>When you want to estimate hardware for Non-production environment you want to spend minimal resources on it.
+      <description>ProblemWhen you want to estimate hardware for Non-production environment you want to spend minimal resources on it.
 Especially if you need it only for development where very low workloads expected.
 Googling minimal hardware recommendations may disappoint you, because authors avoid to give such recommendations.
 For example Kafka: We are using dual quad-core Intel Xeon machines with 24GB of memory. 24 GB RAM, are you sure?
